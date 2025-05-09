@@ -1,5 +1,4 @@
 name = "capture-worker"
-type = "javascript"
 
 [env.production]
 workers_dev = true
