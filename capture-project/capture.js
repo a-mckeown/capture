@@ -1,10 +1,10 @@
 import { AwsClient } from 'aws4fetch';
 
 const aws = new AwsClient({
-  accessKeyId: 'YOUR_AWS_KEY',
-  secretAccessKey: 'YOUR_AWS_SECRET',
+  accessKeyId: 'AWS_KEY',
+  secretAccessKey: 'AWS_SECRET_KEY',
   service: 's3',
-  region: 'us-east-1', // or your bucket region
+  region: 'eu-west-2', // or your bucket region
 });
 
 addEventListener('fetch', event => {
