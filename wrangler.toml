@@ -1,6 +1,7 @@
 name = "capture-worker"
 
 [env.production]
+compatibility_date = "2025-05-09"
 workers_dev = true
 route = "your-domain/*"
 account_id = "your-account-id"
