@@ -4,7 +4,7 @@ export default {
   async fetch(request, env, ctx) {
     // Only log requests to /shop
     if (request.url.includes('/shop')) {
-      // Clone the request so body can be read
+      // Clone request so body can be read
       const requestClone = request.clone();
       const logPromise = (async () => {
         try {
