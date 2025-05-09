@@ -1,0 +1,8 @@
+name = "capture-worker"
+type = "javascript"
+
+[env.production]
+workers_dev = true
+route = "your-domain/*"
+account_id = "your-account-id"
+zone_id = "your-zone-id"
