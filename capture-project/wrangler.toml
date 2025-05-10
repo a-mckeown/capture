@@ -3,3 +3,6 @@ main = "src/capture.js"
 compatibility_date = "2025-05-10"
 compatibility_flags = ["nodejs_compat"]
 
+[vars]
+BUCKET_NAME = "capture-bucket-999"
+BUCKET_REGION = "eu-west-2"
