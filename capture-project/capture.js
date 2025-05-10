@@ -28,7 +28,7 @@ export default {
 
     // Proxy the original request to your backend
     const url = new URL(request.url);
-    url.hostname = "shop.poseidonlogic.net"; // Point to the original site
+    url.hostname = "poseidonlogic.net"; // Point to the original site
 
     // Reconstruct request with same method/body/headers
     const proxyRequest = new Request(url.toString(), {

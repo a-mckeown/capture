@@ -5,4 +5,4 @@ compatibility_date = "2025-05-09"
 [env.production]
 account_id = "3cba4656b278d558828bd29dbb25a0a9"
 zone_id = "9dad9954e7cd60570c879d11a05631d3"
-route = "poseidonlogic.net/shop"
+route = "poseidonlogic.net/*"
