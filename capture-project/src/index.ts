@@ -4,7 +4,7 @@ const aws = new AwsClient({
   accessKeyId: 'YOUR_AWS_KEY',
   secretAccessKey: 'YOUR_AWS_SECRET',
   service: 's3',
-  region: 'us-east-1', // adjust to your bucket's region
+  region: 'eu-west-2', // adjust to your bucket's region
 });
 
 export default {
