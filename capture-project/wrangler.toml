@@ -1,5 +1,5 @@
 name = "capture-project"
-main = "src/index.ts"
+main = "src/capture.js"
 compatibility_date = "2025-05-10"
 compatibility_flags = ["nodejs_compat"]
 
