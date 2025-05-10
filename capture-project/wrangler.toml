@@ -1,8 +1,5 @@
-name = "capture"
-main = "src/index.js"
-compatibility_date = "2025-05-09"
+name = "capture-project"
+main = "src/index.ts"
+compatibility_date = "2025-05-10"
+compatibility_flags = ["nodejs_compat"]
 
-[env.production]
-account_id = "3cba4656b278d558828bd29dbb25a0a9"
-zone_id = "9dad9954e7cd60570c879d11a05631d3"
-route = "poseidonlogic.net/*"
